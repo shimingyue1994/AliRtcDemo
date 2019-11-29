@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data></data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <com.yue.alirtcdemo.weight.ARTCVideoLayoutManager
+            android:id="@+id/artcvideo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></com.yue.alirtcdemo.weight.ARTCVideoLayoutManager>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+
+            <Button
+                android:id="@+id/btn_join"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="进房间" />
+
+            <Button
+                android:id="@+id/btn_jy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="静音" />
+        </LinearLayout>
+    </FrameLayout>
+
+</layout>
+

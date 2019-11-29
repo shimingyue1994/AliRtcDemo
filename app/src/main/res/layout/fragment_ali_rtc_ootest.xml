@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data></data>
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <FrameLayout
+            android:id="@+id/layout_remote"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <org.webrtc.sdk.SophonSurfaceView
+                android:id="@+id/sophon_remote"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/layout_self"
+            android:layout_width="100dp"
+            android:layout_height="150dp">
+
+            <org.webrtc.sdk.SophonSurfaceView
+                android:id="@+id/sophon_self"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </FrameLayout>
+
+        <Button
+            android:id="@+id/btn_join"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:text="进房间" />
+    </RelativeLayout>
+
+</layout>
+
