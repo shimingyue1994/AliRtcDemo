@@ -25,8 +25,8 @@ public class Utils {
     public static ArrayList<RelativeLayout.LayoutParams> initFloatParamList(Context context, int layoutWidth, int layoutHeight) {
         ArrayList<RelativeLayout.LayoutParams> list = new ArrayList<RelativeLayout.LayoutParams>();
         // 底部最大的布局
-//        RelativeLayout.LayoutParams layoutParams0 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        RelativeLayout.LayoutParams layoutParams0 = new RelativeLayout.LayoutParams( Utils.dip2px(context, 300), Utils.dip2px(context, 300));
+        RelativeLayout.LayoutParams layoutParams0 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+//        RelativeLayout.LayoutParams layoutParams0 = new RelativeLayout.LayoutParams( Utils.dip2px(context, 300), Utils.dip2px(context, 300));
         list.add(layoutParams0);
 
         final int midMargin    = Utils.dip2px(context, 10);

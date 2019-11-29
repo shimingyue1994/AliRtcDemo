@@ -278,6 +278,10 @@ public class ARTCVideoLayoutManager extends RelativeLayout {
             addFloatViewClickListener(entity.layout);
 
             if (needAddView) {
+                if (i == 0)
+                    entity.layout.setZorder(false);
+                else
+                    entity.layout.setZorder(true);
                 addView(entity.layout);
             }
         }
@@ -313,7 +317,6 @@ public class ARTCVideoLayoutManager extends RelativeLayout {
     private void makeFullVideoView(int index) {// 1 -> 0
         if (index <= 0 || mLayoutEntityList.size() <= index) return;
         Log.i(TAG, "makeFullVideoView: from = " + index);
-
         ARTCLayoutEntity indexEntity = mLayoutEntityList.get(index);
         ViewGroup.LayoutParams indexParams = indexEntity.layout.getLayoutParams();
 
@@ -328,7 +331,6 @@ public class ARTCVideoLayoutManager extends RelativeLayout {
 
         indexEntity.layout.setMoveable(false);
         indexEntity.layout.setOnClickListener(null);
-        addFloatViewClickListener(fullEntity.layout);
 
         fullEntity.layout.setMoveable(true);
         addFloatViewClickListener(fullEntity.layout);
@@ -336,16 +338,19 @@ public class ARTCVideoLayoutManager extends RelativeLayout {
         mLayoutEntityList.set(0, indexEntity); // 将 fromView 塞到 0 的位置
         mLayoutEntityList.set(index, fullEntity);
 
+        /*把index和full的视频surfaceview移除 然后重新添加，以解决沙雕surfaceview zorder的重复问题*/
+        indexEntity.layout.getVideoContent().removeAllViews();
+        fullEntity.layout.getVideoContent().removeAllViews();
+
+        indexEntity.layout.setZorder(false);
+        indexEntity.layout.getVideoContent().addView(indexEntity.layout.getVideoView());
+
+        fullEntity.layout.setZorder(true);
+        fullEntity.layout.getVideoContent().addView(fullEntity.layout.getVideoView());
+
 
         for (int i = 0; i < mLayoutEntityList.size(); i++) {
             ARTCLayoutEntity entity = mLayoutEntityList.get(i);
-            if (i == 0) {
-                entity.layout.getVideoView().setZOrderOnTop(false);
-                entity.layout.getVideoView().setZOrderMediaOverlay(false);
-            } else {
-                entity.layout.getVideoView().setZOrderOnTop(true);
-                entity.layout.getVideoView().setZOrderMediaOverlay(true);
-            }
             // 需要对 View 树的 zOrder 进行重排，否则在 RelativeLayout 下，存在遮挡情况
             bringChildToFront(entity.layout);
         }

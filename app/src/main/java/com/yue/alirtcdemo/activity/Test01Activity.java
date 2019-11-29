@@ -46,7 +46,7 @@ public class Test01Activity extends AppCompatActivity {
                         AliJoinChannelBean aliJoinChannelBean = new AliJoinChannelBean(info.data.appid,
                                 mBinding.etRoomid.getText().toString(), info.data.userid, info.data.nonce, info.data.timestamp, info.data.token,
                                 info.data.gslb);
-                        Rtc01Activity.startThisActivity(Test01Activity.this, aliJoinChannelBean);
+                        Rtc02Activity.startThisActivity(Test01Activity.this, aliJoinChannelBean);
                     }
 
                     @Override

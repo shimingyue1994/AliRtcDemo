@@ -117,10 +117,10 @@ public class RtOOTestFragment extends AliRtcOOBaseFragment {
 
 
         mBinding.sophonRemote.setOnClickListener(v -> {
+            /*由于sufaceview 的zorder问题需要重新移除添加sufaceview，以重新调整view树的层次，并重新调用setZOrderMediaOverlay等方法使其正确显示emmm*/
             mBinding.layoutRemote.removeAllViews();
             mBinding.layoutSelf.removeAllViews();
 
-            /*由于sufaceview 的zorder问题需要重新移除添加sufaceview，以重新调整view树的层次，并重新调用setZOrderMediaOverlay等方法使其正确显示*/
             mBinding.sophonRemote.getHolder().setFormat(TRANSPARENT);
             mBinding.sophonRemote.setZOrderMediaOverlay(false);
             mBinding.sophonRemote.setZOrderOnTop(false);

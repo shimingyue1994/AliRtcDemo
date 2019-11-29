@@ -29,6 +29,8 @@ import java.lang.ref.WeakReference;
 import java.util.HashMap;
 import java.util.Random;
 
+import static android.graphics.PixelFormat.TRANSPARENT;
+
 /**
  * Module: ARTCVideoLayout
  * <p>
@@ -47,6 +49,7 @@ class ARTCVideoLayout extends RelativeLayout implements View.OnClickListener {
     private OnClickListener mClickListener;
     private GestureDetector mSimpleOnGestureListener;
     private ViewGroup mVgFuc;
+    private FrameLayout mVideoContent;
     private boolean mMoveable;
     private FrameLayout mFlContent;
 
@@ -65,18 +68,15 @@ class ARTCVideoLayout extends RelativeLayout implements View.OnClickListener {
         return mVideoView;
     }
 
+    public FrameLayout getVideoContent() {
+        return mVideoContent;
+    }
+
     private void initFuncLayout() {
         mVgFuc = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.layout_trtc_func, this, true);
+        mVideoContent = mVgFuc.findViewById(R.id.fl_video_content);
         mVideoView = (SophonSurfaceView) mVgFuc.findViewById(R.id.trtc_tc_cloud_view);
         mFlContent = mVgFuc.findViewById(R.id.fl_content);
-        Random random = new Random();
-        int r = random.nextInt(256);
-        int g = random.nextInt(256);
-        int b = random.nextInt(256);
-        mFlContent.setBackgroundColor(Color.rgb(r,g,b));
-        mVideoView.setZOrderOnTop(true);
-        mVideoView.setZOrderMediaOverlay(true);
-        mVideoView.getHolder().setFormat(PixelFormat.TRANSLUCENT);
     }
 
     private void initGestureListener() {
@@ -128,6 +128,21 @@ class ARTCVideoLayout extends RelativeLayout implements View.OnClickListener {
 
     public void setMoveable(boolean enable) {
         mMoveable = enable;
+    }
+
+
+    /**
+     * 由于sufaceview zorder问题存在遮挡view的情况 所以需要重新设置
+     *
+     * @param isZorder true 显示在其他view之上 false 不显示在其他view之上
+     */
+    public void setZorder(boolean isZorder) {
+        if (getVideoView() != null) {
+            if (!isZorder)
+                getVideoView().getHolder().setFormat(TRANSPARENT);
+            getVideoView().setZOrderMediaOverlay(isZorder);
+            getVideoView().setZOrderMediaOverlay(isZorder);
+        }
     }
 
     @Override
