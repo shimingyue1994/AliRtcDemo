@@ -5,6 +5,7 @@ import android.os.Parcelable;
 
 import com.alivc.rtc.AliRtcEngine;
 
+import static com.alivc.rtc.AliRtcEngine.AliRTCCameraType.AliRTCCameraFront;
 import static com.alivc.rtc.AliRtcEngine.AliRtcVideoProfile.AliRTCSDK_Video_Profile_Default;
 import static com.alivc.rtc.AliRtcEngine.AliRtcVideoTrack.AliRtcVideoTrackCamera;
 
@@ -21,7 +22,7 @@ public class AliRtcInitBean implements Parcelable {
     /*视频来源 默认AliRtcVideoTrackCamera 从摄像头，另外还有屏幕共享请参看文档*/
     public AliRtcEngine.AliRtcVideoTrack videoTrack = AliRtcVideoTrackCamera;
     /*摄像头类型 除前后置 还有一个usb 设置usb时将不会执行预设置摄像头*/
-    public AliRtcEngine.AliRTCCameraType cameraType;
+    public AliRtcEngine.AliRTCCameraType cameraType = AliRTCCameraFront;
     /*设置视频流的规格*/
     public AliRtcEngine.AliRtcVideoProfile videoProfile = AliRTCSDK_Video_Profile_Default;
     /*true表示只有音频发布和订阅；false表示音视频都支持。*/

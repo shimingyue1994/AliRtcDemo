@@ -16,6 +16,8 @@ import com.alivc.rtc.AliRtcEngineNotify;
 import com.alivc.rtc.AliRtcRemoteUserInfo;
 import com.yue.alirtcdemo.bean.AliJoinChannelBean;
 import com.yue.alirtcdemo.bean.AliRtcInitBean;
+import com.yue.alirtcdemo.callback.SimpleAliRtcEngineEventListener;
+import com.yue.alirtcdemo.callback.SimpleAliRtcEngineNotify;
 import com.yue.alirtcdemo.weight.ARTCVideoLayoutManager;
 
 import org.webrtc.alirtcInterface.AliParticipantInfo;
@@ -48,6 +50,8 @@ public class AliRtcMoreBaseFragment extends Fragment {
     private AliRtcEngine mAliRtcEngine;
     /*初始化参数*/
     private AliRtcInitBean mAliRtcBean;
+    private SimpleAliRtcEngineEventListener mSimpleEngineEventListener;
+    private SimpleAliRtcEngineNotify mSimpleEngineNotify;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,7 +71,10 @@ public class AliRtcMoreBaseFragment extends Fragment {
      *
      * @param rtcInitBean
      */
-    public void init(AliRtcInitBean rtcInitBean, ARTCVideoLayoutManager videoLayout) {
+    public void init(AliRtcInitBean rtcInitBean, ARTCVideoLayoutManager videoLayout,
+                     SimpleAliRtcEngineEventListener aliRtcEngineEventListener, SimpleAliRtcEngineNotify simpleAliRtcEngineNotify) {
+        this.mSimpleEngineEventListener = aliRtcEngineEventListener;
+        this.mSimpleEngineNotify = simpleAliRtcEngineNotify;
         mAliRtcBean = rtcInitBean;
         mVideoLayoutManager = videoLayout;
         videoLayout.setMySelfUserId(rtcInitBean.userId);
@@ -358,7 +365,9 @@ public class AliRtcMoreBaseFragment extends Fragment {
          */
         @Override
         public void onJoinChannelResult(int result) {
-            Log.i(TAG, "onJoinChannelResult : " + result);
+//            Log.i(TAG, "onJoinChannelResult : " + result);
+            if (mSimpleEngineEventListener != null)
+                mSimpleEngineEventListener.onJoinChannelResult(result);
         }
 
         /**
@@ -367,7 +376,9 @@ public class AliRtcMoreBaseFragment extends Fragment {
          */
         @Override
         public void onLeaveChannelResult(int result) {
-            Log.i(TAG, "onLeaveChannelResult : " + result);
+//            Log.i(TAG, "onLeaveChannelResult : " + result);
+            if (mSimpleEngineEventListener != null)
+                mSimpleEngineEventListener.onLeaveChannelResult(result);
         }
 
         /**
@@ -377,7 +388,9 @@ public class AliRtcMoreBaseFragment extends Fragment {
          */
         @Override
         public void onPublishResult(int result, String publishId) {
-            Log.i(TAG, "onPublishResult : " + result);
+//            Log.i(TAG, "onPublishResult : " + result);
+            if (mSimpleEngineEventListener != null)
+                mSimpleEngineEventListener.onPublishResult(result, publishId);
         }
 
         /**
@@ -386,7 +399,9 @@ public class AliRtcMoreBaseFragment extends Fragment {
          */
         @Override
         public void onUnpublishResult(int result) {
-            Log.i(TAG, "onUnpublishResult : " + result);
+//            Log.i(TAG, "onUnpublishResult : " + result);
+            if (mSimpleEngineEventListener != null)
+                mSimpleEngineEventListener.onUnpublishResult(result);
         }
 
         /**
@@ -399,10 +414,12 @@ public class AliRtcMoreBaseFragment extends Fragment {
         @Override
         public void onSubscribeResult(String uid, int result, AliRtcEngine.AliRtcVideoTrack aliRtcVideoTrack,
                                       AliRtcEngine.AliRtcAudioTrack aliRtcAudioTrack) {
-            Log.i(TAG, "onSubscribeResult : " + result);
+//            Log.i(TAG, "onSubscribeResult : " + result);
             if (result == 0) {
                 updateRemoteDisplay(uid, aliRtcAudioTrack, aliRtcVideoTrack);
             }
+            if (mSimpleEngineEventListener != null)
+                mSimpleEngineEventListener.onSubscribeResult(uid, result, aliRtcVideoTrack, aliRtcAudioTrack);
         }
 
         /**
@@ -412,8 +429,10 @@ public class AliRtcMoreBaseFragment extends Fragment {
          */
         @Override
         public void onUnsubscribeResult(int result, String userId) {
-            Log.i(TAG, "onUnsubscribeResult : " + result);
+//            Log.i(TAG, "onUnsubscribeResult : " + result);
             updateRemoteDisplay(userId, AliRtcAudioTrackNo, AliRtcVideoTrackNo);
+            if (mSimpleEngineEventListener != null)
+                mSimpleEngineEventListener.onUnsubscribeResult(result, userId);
         }
 
         /**
@@ -422,7 +441,9 @@ public class AliRtcMoreBaseFragment extends Fragment {
          */
         @Override
         public void onNetworkQualityChanged(AliRtcEngine.AliRtcNetworkQuality aliRtcNetworkQuality) {
-            Log.i(TAG, "onNetworkQualityChanged : ");
+//            Log.i(TAG, "onNetworkQualityChanged : ");
+            if (mSimpleEngineEventListener != null)
+                mSimpleEngineEventListener.onNetworkQualityChanged(aliRtcNetworkQuality);
         }
 
         /**
@@ -431,7 +452,9 @@ public class AliRtcMoreBaseFragment extends Fragment {
          */
         @Override
         public void onOccurWarning(int warn) {
-            Log.i(TAG, "onOccurWarning : " + warn);
+//            Log.i(TAG, "onOccurWarning : " + warn);
+            if (mSimpleEngineEventListener != null)
+                mSimpleEngineEventListener.onOccurWarning(warn);
         }
 
         /**
@@ -440,9 +463,11 @@ public class AliRtcMoreBaseFragment extends Fragment {
          */
         @Override
         public void onOccurError(int error) {
-            Log.i(TAG, "onOccurError : " + error);
+//            Log.i(TAG, "onOccurError : " + error);
             //错误处理
 //            processOccurError(error);
+            if (mSimpleEngineEventListener != null)
+                mSimpleEngineEventListener.onOccurError(error);
         }
 
         /**
@@ -450,7 +475,8 @@ public class AliRtcMoreBaseFragment extends Fragment {
          */
         @Override
         public void onConnectionLost() {
-
+            if (mSimpleEngineEventListener != null)
+                mSimpleEngineEventListener.onConnectionLost();
         }
 
         /**
@@ -458,7 +484,8 @@ public class AliRtcMoreBaseFragment extends Fragment {
          */
         @Override
         public void onTryToReconnect() {
-
+            if (mSimpleEngineEventListener != null)
+                mSimpleEngineEventListener.onTryToReconnect();
         }
 
         /**
@@ -466,7 +493,8 @@ public class AliRtcMoreBaseFragment extends Fragment {
          */
         @Override
         public void onConnectionRecovery() {
-
+            if (mSimpleEngineEventListener != null)
+                mSimpleEngineEventListener.onConnectionRecovery();
         }
     };
 
@@ -483,6 +511,8 @@ public class AliRtcMoreBaseFragment extends Fragment {
         public void onRemoteUserUnPublish(AliRtcEngine aliRtcEngine, String userId) {
             Log.i(TAG, "onRemoteUserUnPublish : " + userId);
             updateRemoteDisplay(userId, AliRtcAudioTrackNo, AliRtcVideoTrackNo);
+            if (mSimpleEngineNotify != null)
+                mSimpleEngineNotify.onRemoteUserUnPublish(aliRtcEngine, userId);
         }
 
         /**
@@ -493,6 +523,8 @@ public class AliRtcMoreBaseFragment extends Fragment {
         public void onRemoteUserOnLineNotify(String uid) {
             Log.i(TAG, "onRemoteUserOnLineNotify : " + uid);
 //            addRemoteUser(s);
+            if (mSimpleEngineNotify != null)
+                mSimpleEngineNotify.onRemoteUserOnLineNotify(uid);
         }
 
         /**
@@ -503,6 +535,8 @@ public class AliRtcMoreBaseFragment extends Fragment {
         public void onRemoteUserOffLineNotify(String uid) {
             Log.i(TAG, "onRemoteUserOffLineNotify : " + uid);
 //            removeRemoteUser(s);
+            if (mSimpleEngineNotify != null)
+                mSimpleEngineNotify.onRemoteUserOffLineNotify(uid);
         }
 
         /**
@@ -516,6 +550,8 @@ public class AliRtcMoreBaseFragment extends Fragment {
                                                  AliRtcEngine.AliRtcVideoTrack aliRtcVideoTrack) {
             Log.i(TAG, "onRemoteTrackAvailableNotify : " + uid);
             updateRemoteDisplay(uid, aliRtcAudioTrack, aliRtcVideoTrack);
+            if (mSimpleEngineNotify != null)
+                mSimpleEngineNotify.onRemoteTrackAvailableNotify(uid, aliRtcAudioTrack, aliRtcVideoTrack);
         }
 
         /**
@@ -528,6 +564,8 @@ public class AliRtcMoreBaseFragment extends Fragment {
         public void onSubscribeChangedNotify(String uid, AliRtcEngine.AliRtcAudioTrack aliRtcAudioTrack,
                                              AliRtcEngine.AliRtcVideoTrack aliRtcVideoTrack) {
             Log.i(TAG, "onSubscribeChangedNotify : " + uid);
+            if (mSimpleEngineNotify != null)
+                mSimpleEngineNotify.onSubscribeChangedNotify(uid, aliRtcAudioTrack, aliRtcVideoTrack);
         }
 
         /**
@@ -538,6 +576,8 @@ public class AliRtcMoreBaseFragment extends Fragment {
         @Override
         public void onParticipantSubscribeNotify(AliSubscriberInfo[] aliSubscriberInfos, int count) {
             Log.i(TAG, "onParticipantSubscribeNotify : " + count);
+            if (mSimpleEngineNotify != null)
+                mSimpleEngineNotify.onParticipantSubscribeNotify(aliSubscriberInfos, count);
         }
 
         /**
@@ -550,6 +590,8 @@ public class AliRtcMoreBaseFragment extends Fragment {
         @Override
         public void onFirstFramereceived(String callId, String streamLabel, String trackLabel, int timeCost) {
             Log.i(TAG, "onFirstFramereceived : " + callId);
+            if (mSimpleEngineNotify != null)
+                mSimpleEngineNotify.onFirstFramereceived(callId, streamLabel, trackLabel, timeCost);
         }
 
 
@@ -563,6 +605,8 @@ public class AliRtcMoreBaseFragment extends Fragment {
         @Override
         public void onFirstPacketReceived(String callId, String streamLabel, String trackLabel, int timeCost) {
             Log.i(TAG, "onFirstPacketReceived : " + callId);
+            if (mSimpleEngineNotify != null)
+                mSimpleEngineNotify.onFirstPacketReceived(callId, streamLabel, trackLabel, timeCost);
         }
 
         /**
@@ -575,6 +619,8 @@ public class AliRtcMoreBaseFragment extends Fragment {
         @Override
         public void onFirstPacketSent(String callId, String streamLabel, String trackLabel, int timeCost) {
             Log.i(TAG, "onFirstPacketSent : " + callId);
+            if (mSimpleEngineNotify != null)
+                mSimpleEngineNotify.onFirstPacketSent(callId, streamLabel, trackLabel, timeCost);
         }
 
         /**
@@ -585,6 +631,8 @@ public class AliRtcMoreBaseFragment extends Fragment {
         @Override
         public void onParticipantUnsubscribeNotify(AliParticipantInfo[] aliParticipantInfos, int count) {
             Log.i(TAG, "onParticipantUnsubscribeNotify : " + count);
+            if (mSimpleEngineNotify != null)
+                mSimpleEngineNotify.onParticipantUnsubscribeNotify(aliParticipantInfos, count);
         }
 
         /**
@@ -598,6 +646,8 @@ public class AliRtcMoreBaseFragment extends Fragment {
         @Override
         public void onBye(int code) {
             Log.i(TAG, "onBye : " + code);
+            if (mSimpleEngineNotify != null)
+                mSimpleEngineNotify.onBye(code);
         }
 
         /**
@@ -608,6 +658,8 @@ public class AliRtcMoreBaseFragment extends Fragment {
         @Override
         public void onParticipantStatusNotify(AliStatusInfo[] aliStatusInfos, int count) {
             Log.i(TAG, "onParticipantStatusNotify : " + count);
+            if (mSimpleEngineNotify != null)
+                mSimpleEngineNotify.onParticipantStatusNotify(aliStatusInfos, count);
         }
     };
 
