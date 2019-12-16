@@ -1,26 +1,19 @@
 package com.yue.alirtcdemo.fragment;
 
-import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.databinding.MergedDataBinderMapper;
 
 import com.yue.alirtcdemo.R;
 import com.yue.alirtcdemo.bean.AliJoinChannelBean;
 import com.yue.alirtcdemo.bean.AliRtcInitBean;
 import com.yue.alirtcdemo.databinding.FragmentAliRtcOotestBinding;
-import com.yue.alirtcdemo.weight.Utils;
 
-import static android.graphics.PixelFormat.TRANSLUCENT;
 import static android.graphics.PixelFormat.TRANSPARENT;
 
 /**
@@ -70,7 +63,7 @@ public class RtOOTestFragment extends AliRtcOOBaseFragment {
                 stopAudioPlayer();
             }
         });
-        init(new AliRtcInitBean(channelBean.userId), mBinding.sophonSelf, mBinding.sophonRemote);
+        init(new AliRtcInitBean(channelBean.userId), mBinding.sophonSelf, mBinding.sophonRemote, null, null);
 
 
 //        mBinding.layoutRemote.setOnClickListener(v -> {

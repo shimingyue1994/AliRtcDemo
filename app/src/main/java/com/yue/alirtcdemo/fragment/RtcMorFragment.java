@@ -69,7 +69,7 @@ public class RtcMorFragment extends AliRtcMoreBaseFragment {
         });
         AliRtcInitBean bean =  new AliRtcInitBean(channelBean.userId);
         bean.isSpeaker = false;
-        init(bean, mBinding.artcvideo);
+        init(bean, mBinding.artcvideo,null,null);
         startPreview();
     }
 

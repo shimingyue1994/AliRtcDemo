@@ -1,10 +1,8 @@
 package com.yue.alirtcdemo.fragment;
 
 import android.annotation.SuppressLint;
-import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -70,6 +68,9 @@ public class AliRtcMoreBaseFragment extends Fragment {
      * 只需要在onActivityCreated或onViewCreate里调用此方法 ，然后再适时调用joinChannel并传入参数即可
      *
      * @param rtcInitBean
+     * @param videoLayout               视频view
+     * @param aliRtcEngineEventListener 主动调用sdk方法的回调 可传null
+     * @param simpleAliRtcEngineNotify  被动接收的通知 可传null
      */
     public void init(AliRtcInitBean rtcInitBean, ARTCVideoLayoutManager videoLayout,
                      SimpleAliRtcEngineEventListener aliRtcEngineEventListener, SimpleAliRtcEngineNotify simpleAliRtcEngineNotify) {

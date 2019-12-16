@@ -4,11 +4,8 @@ import android.annotation.SuppressLint;
 import android.graphics.PixelFormat;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
@@ -17,7 +14,6 @@ import com.alivc.rtc.AliRtcEngine;
 import com.alivc.rtc.AliRtcEngineEventListener;
 import com.alivc.rtc.AliRtcEngineNotify;
 import com.alivc.rtc.AliRtcRemoteUserInfo;
-import com.yue.alirtcdemo.R;
 import com.yue.alirtcdemo.bean.AliJoinChannelBean;
 import com.yue.alirtcdemo.bean.AliRtcInitBean;
 import com.yue.alirtcdemo.callback.SimpleAliRtcEngineEventListener;
@@ -98,11 +94,11 @@ public class AliRtcOOBaseFragment extends Fragment {
     /**
      * 只需要在onActivityCreated或onViewCreate里调用此方法 ，然后再适时调用joinChannel并传入参数即可
      *
-     * @param rtcAuthBean
-     * @param self
-     * @param remote
-     * @param aliRtcEngineEventListener
-     * @param simpleAliRtcEngineNotify
+     * @param rtcAuthBean 初始化bean
+     * @param self                      自己的视频view
+     * @param remote                    远端的视频view
+     * @param aliRtcEngineEventListener 可传null
+     * @param simpleAliRtcEngineNotify  可传null
      */
     public void init(AliRtcInitBean rtcAuthBean, SophonSurfaceView self, SophonSurfaceView remote,
                      SimpleAliRtcEngineEventListener aliRtcEngineEventListener, SimpleAliRtcEngineNotify simpleAliRtcEngineNotify) {
