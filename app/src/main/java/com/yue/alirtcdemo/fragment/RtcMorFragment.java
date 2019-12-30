@@ -1,25 +1,18 @@
 package com.yue.alirtcdemo.fragment;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.yue.alirtcdemo.R;
-import com.google.android.gms.plus.PlusOneButton;
-import com.yue.alirtcdemo.bean.AliJoinChannelBean;
-import com.yue.alirtcdemo.bean.AliRtcInitBean;
-import com.yue.alirtcdemo.databinding.FragmentAliRtcOotestBinding;
 import com.yue.alirtcdemo.databinding.FragmentRtcMorBinding;
+import com.yue.libalirtc.bean.AliJoinChannelBean;
+import com.yue.libalirtc.bean.AliRtcInitBean;
 
 
 public class RtcMorFragment extends AliRtcMoreBaseFragment {

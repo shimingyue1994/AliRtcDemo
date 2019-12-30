@@ -10,9 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 
 import com.yue.alirtcdemo.R;
-import com.yue.alirtcdemo.bean.AliJoinChannelBean;
-import com.yue.alirtcdemo.bean.AliRtcInitBean;
 import com.yue.alirtcdemo.databinding.FragmentAliRtcOotestBinding;
+import com.yue.libalirtc.bean.AliJoinChannelBean;
+import com.yue.libalirtc.bean.AliRtcInitBean;
 
 import static android.graphics.PixelFormat.TRANSPARENT;
 

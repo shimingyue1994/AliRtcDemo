@@ -9,10 +9,10 @@
         android:orientation="vertical">
 
 
-        <com.yue.alirtcdemo.weight.ARTCVideoLayoutManager
+        <com.yue.libalirtc.weight.ARTCVideoLayoutManager
             android:id="@+id/artcvideo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.yue.alirtcdemo.weight.ARTCVideoLayoutManager>
+            android:layout_height="match_parent"></com.yue.libalirtc.weight.ARTCVideoLayoutManager>
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -12,12 +12,13 @@ import com.alivc.rtc.AliRtcEngine;
 import com.alivc.rtc.AliRtcEngineEventListener;
 import com.alivc.rtc.AliRtcEngineNotify;
 import com.alivc.rtc.AliRtcRemoteUserInfo;
-import com.yue.alirtcdemo.bean.AliJoinChannelBean;
-import com.yue.alirtcdemo.bean.AliRtcInitBean;
-import com.yue.alirtcdemo.callback.SimpleAliRtcEngineEventListener;
-import com.yue.alirtcdemo.callback.SimpleAliRtcEngineNotify;
-import com.yue.alirtcdemo.weight.ARTCVideoLayoutManager;
+import com.yue.libalirtc.bean.AliJoinChannelBean;
+import com.yue.libalirtc.bean.AliRtcInitBean;
+import com.yue.libalirtc.callback.SimpleAliRtcEngineEventListener;
+import com.yue.libalirtc.callback.SimpleAliRtcEngineNotify;
+import com.yue.libalirtc.weight.ARTCVideoLayoutManager;
 
+import org.webrtc.alirtcInterface.ALI_RTC_INTERFACE;
 import org.webrtc.alirtcInterface.AliParticipantInfo;
 import org.webrtc.alirtcInterface.AliStatusInfo;
 import org.webrtc.alirtcInterface.AliSubscriberInfo;
@@ -435,17 +436,16 @@ public class AliRtcMoreBaseFragment extends Fragment {
             if (mSimpleEngineEventListener != null)
                 mSimpleEngineEventListener.onUnsubscribeResult(result, userId);
         }
-
         /**
          * 网络状态变化的回调
          * @param aliRtcNetworkQuality
          */
         @Override
-        public void onNetworkQualityChanged(AliRtcEngine.AliRtcNetworkQuality aliRtcNetworkQuality) {
-//            Log.i(TAG, "onNetworkQualityChanged : ");
+        public void onNetworkQualityChanged(String s, AliRtcEngine.AliRtcNetworkQuality aliRtcNetworkQuality) {
             if (mSimpleEngineEventListener != null)
-                mSimpleEngineEventListener.onNetworkQualityChanged(aliRtcNetworkQuality);
+                mSimpleEngineEventListener.onNetworkQualityChanged(s,aliRtcNetworkQuality);
         }
+
 
         /**
          * 出现警告的回调
@@ -496,6 +496,17 @@ public class AliRtcMoreBaseFragment extends Fragment {
         public void onConnectionRecovery() {
             if (mSimpleEngineEventListener != null)
                 mSimpleEngineEventListener.onConnectionRecovery();
+        }
+
+        /**
+         * @param aliRTCSDK_client_role
+         * @param aliRTCSDK_client_role1
+         * 用户角色更新
+         */
+        @Override
+        public void onUpdateRoleNotify(ALI_RTC_INTERFACE.AliRTCSDK_Client_Role aliRTCSDK_client_role, ALI_RTC_INTERFACE.AliRTCSDK_Client_Role aliRTCSDK_client_role1) {
+            if (mSimpleEngineEventListener != null)
+                mSimpleEngineEventListener.onUpdateRoleNotify(aliRTCSDK_client_role,aliRTCSDK_client_role1);
         }
     };
 

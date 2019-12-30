@@ -51,5 +51,7 @@ dependencies {
     implementation 'com.lzy.net:okrx2:2.0.2'
     implementation 'com.lzy.net:okserver:2.0.5'
     implementation 'com.alibaba:fastjson:1.2.62'
+    implementation project(path: ':libalirtc')
+
 
 }

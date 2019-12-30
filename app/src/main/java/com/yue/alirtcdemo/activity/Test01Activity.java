@@ -43,6 +43,7 @@ public class Test01Activity extends AppCompatActivity {
                     public void onSuccess(Response<String> response) {
                         Log.i("Test01", response.body());
                         RTCAuthInfo info = JSON.parseObject(response.body(), RTCAuthInfo.class);
+
                         AliJoinChannelBean aliJoinChannelBean = new AliJoinChannelBean(info.data.appid,
                                 mBinding.etRoomid.getText().toString(), info.data.userid, info.data.nonce, info.data.timestamp, info.data.token,
                                 info.data.gslb);

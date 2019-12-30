@@ -14,11 +14,12 @@ import com.alivc.rtc.AliRtcEngine;
 import com.alivc.rtc.AliRtcEngineEventListener;
 import com.alivc.rtc.AliRtcEngineNotify;
 import com.alivc.rtc.AliRtcRemoteUserInfo;
-import com.yue.alirtcdemo.bean.AliJoinChannelBean;
-import com.yue.alirtcdemo.bean.AliRtcInitBean;
-import com.yue.alirtcdemo.callback.SimpleAliRtcEngineEventListener;
-import com.yue.alirtcdemo.callback.SimpleAliRtcEngineNotify;
+import com.yue.libalirtc.bean.AliJoinChannelBean;
+import com.yue.libalirtc.bean.AliRtcInitBean;
+import com.yue.libalirtc.callback.SimpleAliRtcEngineEventListener;
+import com.yue.libalirtc.callback.SimpleAliRtcEngineNotify;
 
+import org.webrtc.alirtcInterface.ALI_RTC_INTERFACE;
 import org.webrtc.alirtcInterface.AliParticipantInfo;
 import org.webrtc.alirtcInterface.AliStatusInfo;
 import org.webrtc.alirtcInterface.AliSubscriberInfo;
@@ -29,7 +30,7 @@ import java.util.Random;
 import static com.alivc.rtc.AliRtcEngine.AliRTCCameraType.AliRTCCameraBack;
 import static com.alivc.rtc.AliRtcEngine.AliRTCCameraType.AliRTCCameraFront;
 import static com.alivc.rtc.AliRtcEngine.AliRtcAudioTrack.AliRtcAudioTrackNo;
-import static com.alivc.rtc.AliRtcEngine.AliRtcRenderMode.*;
+import static com.alivc.rtc.AliRtcEngine.AliRtcRenderMode.AliRtcRenderModeAuto;
 import static com.alivc.rtc.AliRtcEngine.AliRtcVideoProfile.AliRTCSDK_Video_Profile_Default;
 import static com.alivc.rtc.AliRtcEngine.AliRtcVideoTrack.AliRtcVideoTrackBoth;
 import static com.alivc.rtc.AliRtcEngine.AliRtcVideoTrack.AliRtcVideoTrackCamera;
@@ -465,16 +466,13 @@ public class AliRtcOOBaseFragment extends Fragment {
                 mSimpleEngineEventListener.onUnsubscribeResult(result, userId);
         }
 
-        /**
-         * 网络状态变化的回调
-         * @param aliRtcNetworkQuality
-         */
         @Override
-        public void onNetworkQualityChanged(AliRtcEngine.AliRtcNetworkQuality aliRtcNetworkQuality) {
-//            Log.i(TAG, "onNetworkQualityChanged : ");
+        public void onNetworkQualityChanged(String s, AliRtcEngine.AliRtcNetworkQuality aliRtcNetworkQuality) {
             if (mSimpleEngineEventListener != null)
-                mSimpleEngineEventListener.onNetworkQualityChanged(aliRtcNetworkQuality);
+                mSimpleEngineEventListener.onNetworkQualityChanged(s,aliRtcNetworkQuality);
         }
+
+
 
         /**
          * 出现警告的回调
@@ -525,6 +523,12 @@ public class AliRtcOOBaseFragment extends Fragment {
         public void onConnectionRecovery() {
             if (mSimpleEngineEventListener != null)
                 mSimpleEngineEventListener.onConnectionRecovery();
+        }
+
+        @Override
+        public void onUpdateRoleNotify(ALI_RTC_INTERFACE.AliRTCSDK_Client_Role aliRTCSDK_client_role, ALI_RTC_INTERFACE.AliRTCSDK_Client_Role aliRTCSDK_client_role1) {
+            if (mSimpleEngineEventListener != null)
+                mSimpleEngineEventListener.onUpdateRoleNotify(aliRTCSDK_client_role,aliRTCSDK_client_role1);
         }
     };
 
