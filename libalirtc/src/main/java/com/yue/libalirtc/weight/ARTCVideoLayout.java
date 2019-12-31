@@ -12,7 +12,8 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 
-import com.yue.alirtcdemo.R;
+
+import com.yue.libalirtc.R;
 
 import org.webrtc.sdk.SophonSurfaceView;
 
@@ -63,7 +64,6 @@ class ARTCVideoLayout extends RelativeLayout implements View.OnClickListener {
         mVgFuc = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.layout_trtc_func, this, true);
         mVideoContent = mVgFuc.findViewById(R.id.fl_video_content);
         mVideoView = (SophonSurfaceView) mVgFuc.findViewById(R.id.trtc_tc_cloud_view);
-        mFlContent = mVgFuc.findViewById(R.id.fl_content);
     }
 
     private void initGestureListener() {
