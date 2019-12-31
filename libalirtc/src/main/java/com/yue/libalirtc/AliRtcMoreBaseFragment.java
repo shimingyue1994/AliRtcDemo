@@ -177,7 +177,10 @@ public class AliRtcMoreBaseFragment extends Fragment {
      * @return 0 表示预览成功 其他为失败
      */
     public int startPreview() {
-        return mAliRtcEngine.startPreview();
+        if (mAliRtcEngine != null)
+            return mAliRtcEngine.startPreview();
+        else
+            return -1;
     }
 
     /**
@@ -186,14 +189,20 @@ public class AliRtcMoreBaseFragment extends Fragment {
      * @return
      */
     public int stopPreview() {
-        return mAliRtcEngine.stopPreview();
+        if (mAliRtcEngine != null)
+            return mAliRtcEngine.stopPreview();
+        else
+            return -1;
     }
 
     /**
      * @return 切换"前后"摄像头，返回0为切换成功，其他为切换失败。只有前后置摄像头才能切换 usb或无效则不可切换
      */
     public int switchCamera() {
-        return mAliRtcEngine.switchCamera();
+        if (mAliRtcEngine != null)
+            return mAliRtcEngine.switchCamera();
+        else
+            return -1;
     }
 
     /**
@@ -203,7 +212,10 @@ public class AliRtcMoreBaseFragment extends Fragment {
      * @return
      */
     public int muteLocalCamera(boolean mute) {
-        return mAliRtcEngine.muteLocalCamera(mute, mAliRtcBean.videoTrack);
+        if (mAliRtcEngine != null)
+            return mAliRtcEngine.muteLocalCamera(mute, mAliRtcBean.videoTrack);
+        else
+            return -1;
     }
 
     /**
@@ -213,7 +225,10 @@ public class AliRtcMoreBaseFragment extends Fragment {
      * @return 返回0表示设置成功，其他表示设置失败。
      */
     public int setCameraZoom(float zoom, boolean flash, boolean autoFocus) {
-        return mAliRtcEngine.setCameraZoom(zoom, flash, autoFocus);
+        if (mAliRtcEngine != null)
+            return mAliRtcEngine.setCameraZoom(zoom, flash, autoFocus);
+        else
+            return -1;
     }
 
 
@@ -222,7 +237,10 @@ public class AliRtcMoreBaseFragment extends Fragment {
      * @return
      */
     public int muteLocalMic(boolean mute) {
-        return mAliRtcEngine.muteLocalMic(mute);
+        if (mAliRtcEngine != null)
+            return mAliRtcEngine.muteLocalMic(mute);
+        else
+            return -1;
     }
 
     /**
@@ -231,7 +249,10 @@ public class AliRtcMoreBaseFragment extends Fragment {
      * @return
      */
     public int startAudioCapture() {
-        return mAliRtcEngine.startAudioCapture();
+        if (mAliRtcEngine != null)
+            return mAliRtcEngine.startAudioCapture();
+        else
+            return -1;
     }
 
     /**
@@ -240,7 +261,10 @@ public class AliRtcMoreBaseFragment extends Fragment {
      * @return
      */
     public int stopAudioCapture() {
-        return mAliRtcEngine.stopAudioCapture();
+        if (mAliRtcEngine != null)
+            return mAliRtcEngine.stopAudioCapture();
+        else
+            return -1;
     }
 
     /**
@@ -249,7 +273,10 @@ public class AliRtcMoreBaseFragment extends Fragment {
      * @return
      */
     public int startAudioPlayer() {
-        return mAliRtcEngine.startAudioPlayer();
+        if (mAliRtcEngine != null)
+            return mAliRtcEngine.startAudioPlayer();
+        else
+            return -1;
     }
 
 
@@ -259,7 +286,10 @@ public class AliRtcMoreBaseFragment extends Fragment {
      * @return
      */
     public int stopAudioPlayer() {
-        return mAliRtcEngine.stopAudioPlayer();
+        if (mAliRtcEngine != null)
+            return mAliRtcEngine.stopAudioPlayer();
+        else
+            return -1;
     }
 
     /**
@@ -270,7 +300,10 @@ public class AliRtcMoreBaseFragment extends Fragment {
      * @return 返回0表示设置成功，-1表示设置失败。
      */
     public int muteRemoteAudioPlaying(String uid, boolean mute) {
-        return mAliRtcEngine.muteRemoteAudioPlaying(uid, mute);
+        if (mAliRtcEngine != null)
+            return mAliRtcEngine.muteRemoteAudioPlaying(uid, mute);
+        else
+            return -1;
     }
 
     /**
@@ -280,15 +313,19 @@ public class AliRtcMoreBaseFragment extends Fragment {
      * @return
      */
     public int enableSpeakerphone(boolean enable) {
-        return mAliRtcEngine.enableSpeakerphone(enable);
+        if (mAliRtcEngine != null)
+            return mAliRtcEngine.enableSpeakerphone(enable);
+        else
+            return -1;
     }
 
     /**
      * 离开频道
      */
     public void leaveChannel() {
-        if (mAliRtcEngine.isInCall())
-            mAliRtcEngine.leaveChannel();
+        if (mAliRtcEngine != null)
+            if (mAliRtcEngine.isInCall())
+                mAliRtcEngine.leaveChannel();
     }
 
 
@@ -436,6 +473,7 @@ public class AliRtcMoreBaseFragment extends Fragment {
             if (mSimpleEngineEventListener != null)
                 mSimpleEngineEventListener.onUnsubscribeResult(result, userId);
         }
+
         /**
          * 网络状态变化的回调
          * @param aliRtcNetworkQuality
@@ -443,7 +481,7 @@ public class AliRtcMoreBaseFragment extends Fragment {
         @Override
         public void onNetworkQualityChanged(String s, AliRtcEngine.AliRtcNetworkQuality aliRtcNetworkQuality) {
             if (mSimpleEngineEventListener != null)
-                mSimpleEngineEventListener.onNetworkQualityChanged(s,aliRtcNetworkQuality);
+                mSimpleEngineEventListener.onNetworkQualityChanged(s, aliRtcNetworkQuality);
         }
 
 
@@ -506,7 +544,7 @@ public class AliRtcMoreBaseFragment extends Fragment {
         @Override
         public void onUpdateRoleNotify(ALI_RTC_INTERFACE.AliRTCSDK_Client_Role aliRTCSDK_client_role, ALI_RTC_INTERFACE.AliRTCSDK_Client_Role aliRTCSDK_client_role1) {
             if (mSimpleEngineEventListener != null)
-                mSimpleEngineEventListener.onUpdateRoleNotify(aliRTCSDK_client_role,aliRTCSDK_client_role1);
+                mSimpleEngineEventListener.onUpdateRoleNotify(aliRTCSDK_client_role, aliRTCSDK_client_role1);
         }
     };
 
