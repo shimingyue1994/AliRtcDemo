@@ -504,9 +504,9 @@ public class AliRtcOOBaseFragment extends Fragment {
         }
 
         @Override
-        public void onNetworkQualityChanged(String s, AliRtcEngine.AliRtcNetworkQuality aliRtcNetworkQuality) {
+        public void onNetworkQualityChanged(String uid, AliRtcEngine.AliRtcNetworkQuality upQuality, AliRtcEngine.AliRtcNetworkQuality downQuality) {
             if (mSimpleEngineEventListener != null)
-                mSimpleEngineEventListener.onNetworkQualityChanged(s,aliRtcNetworkQuality);
+                mSimpleEngineEventListener.onNetworkQualityChanged(uid,upQuality,downQuality);
         }
 
 
@@ -563,9 +563,9 @@ public class AliRtcOOBaseFragment extends Fragment {
         }
 
         @Override
-        public void onUpdateRoleNotify(ALI_RTC_INTERFACE.AliRTCSDK_Client_Role aliRTCSDK_client_role, ALI_RTC_INTERFACE.AliRTCSDK_Client_Role aliRTCSDK_client_role1) {
+        public void onUpdateRoleNotify(AliRtcEngine.AliRTCSDK_Client_Role oldRole, AliRtcEngine.AliRTCSDK_Client_Role newRole) {
             if (mSimpleEngineEventListener != null)
-                mSimpleEngineEventListener.onUpdateRoleNotify(aliRTCSDK_client_role,aliRTCSDK_client_role1);
+                mSimpleEngineEventListener.onUpdateRoleNotify(oldRole,newRole);
         }
     };
 

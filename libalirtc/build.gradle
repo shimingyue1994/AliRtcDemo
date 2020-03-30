@@ -29,10 +29,14 @@ android {
 }
 
 dependencies {
-    api fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
-
+    //    implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation 'androidx.appcompat:appcompat:1.0.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+    //    implementation files('libs/AliRTCSdk.jar')
+    api files('libs/Sophonsdk.aar')
+    api files('libs/webrtclib.aar')
+    api files('libs/AliRTCSdk.jar')
+    provided files('libs/utdid4all-1.5.0-proguard.jar')
 }

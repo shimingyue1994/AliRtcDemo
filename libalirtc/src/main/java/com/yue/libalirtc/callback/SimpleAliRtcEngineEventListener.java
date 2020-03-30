@@ -12,7 +12,7 @@ import org.webrtc.alirtcInterface.ALI_RTC_INTERFACE;
  * @create 2019/12/16 9:34
  * @desc 阿里atc的回调监听接口，是我们主动调用sdk的某些方法后的回调
  */
-public class SimpleAliRtcEngineEventListener implements AliRtcEngineEventListener {
+public class SimpleAliRtcEngineEventListener extends AliRtcEngineEventListener {
 
     private final  String TAG = "EngineEventListener";
 
@@ -82,10 +82,12 @@ public class SimpleAliRtcEngineEventListener implements AliRtcEngineEventListene
 
     /**
      * 网络状态变化的回调
-     * @param aliRtcNetworkQuality
+     * @param uid
+     * @param upQuality
+     * @param downQuality
      */
     @Override
-    public void onNetworkQualityChanged(String s,AliRtcEngine.AliRtcNetworkQuality aliRtcNetworkQuality) {
+    public void onNetworkQualityChanged(String uid, AliRtcEngine.AliRtcNetworkQuality upQuality, AliRtcEngine.AliRtcNetworkQuality downQuality) {
         Log.i(TAG, "onNetworkQualityChanged : ");
     }
 
@@ -134,12 +136,12 @@ public class SimpleAliRtcEngineEventListener implements AliRtcEngineEventListene
     }
 
     /**
-     * @param aliRTCSDK_client_role
-     * @param aliRTCSDK_client_role1
+     * @param oldRole
+     * @param newRole
      * 用户角色更新
      */
     @Override
-    public void onUpdateRoleNotify(ALI_RTC_INTERFACE.AliRTCSDK_Client_Role aliRTCSDK_client_role, ALI_RTC_INTERFACE.AliRTCSDK_Client_Role aliRTCSDK_client_role1) {
+    public void onUpdateRoleNotify(AliRtcEngine.AliRTCSDK_Client_Role oldRole, AliRtcEngine.AliRTCSDK_Client_Role newRole) {
 
     }
 }
