@@ -12,9 +12,9 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.yue.alirtcdemo.R;
-import com.yue.alirtcdemo.bean.AliJoinChannelBean;
-import com.yue.alirtcdemo.bean.RTCAuthInfo;
 import com.yue.alirtcdemo.databinding.ActivityTest01Binding;
+import com.yue.libalirtc.bean.AliJoinChannelBean;
+import com.yue.libalirtc.bean.RTCAuthInfo;
 
 import java.util.Random;
 

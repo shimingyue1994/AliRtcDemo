@@ -446,7 +446,7 @@ public class AliRtcMoreBaseFragment extends Fragment {
         @Override
         public void onNetworkQualityChanged(String uid, AliRtcEngine.AliRtcNetworkQuality upQuality, AliRtcEngine.AliRtcNetworkQuality downQuality) {
             if (mSimpleEngineEventListener != null)
-                mSimpleEngineEventListener.onNetworkQualityChanged(uid,downQuality);
+                mSimpleEngineEventListener.onNetworkQualityChanged(uid,upQuality,downQuality);
         }
 
 

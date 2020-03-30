@@ -7,8 +7,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.yue.alirtcdemo.R;
-import com.yue.alirtcdemo.bean.AliJoinChannelBean;
 import com.yue.alirtcdemo.fragment.RtcMorFragment;
+import com.yue.libalirtc.bean.AliJoinChannelBean;
 
 /**
  * @author shimy

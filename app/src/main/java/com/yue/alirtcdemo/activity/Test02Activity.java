@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.yue.alirtcdemo.R;
 import com.yue.alirtcdemo.databinding.ActivityTest02Binding;
-import com.yue.alirtcdemo.weight.ARTCVideoLayoutManager;
+import com.yue.libalirtc.weight.ARTCVideoLayoutManager;
 
 public class Test02Activity extends AppCompatActivity {
 

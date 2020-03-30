@@ -25,10 +25,10 @@
             android:layout_margin="100dp"
             android:background="@color/colorAccent"></FrameLayout>
 
-        <com.yue.alirtcdemo.weight.ARTCVideoLayoutManager
+        <com.yue.libalirtc.weight.ARTCVideoLayoutManager
             android:id="@+id/rtcvideo"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.yue.alirtcdemo.weight.ARTCVideoLayoutManager>
+            android:layout_height="match_parent"></com.yue.libalirtc.weight.ARTCVideoLayoutManager>
 
 
     </RelativeLayout>
