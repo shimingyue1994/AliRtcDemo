@@ -36,7 +36,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
     //    implementation files('libs/AliRTCSdk.jar')
     api files('libs/Sophonsdk.aar')
+    api files('libs/alivc-core-rtc.aar')
     api files('libs/webrtclib.aar')
     api files('libs/AliRTCSdk.jar')
-    compileOnly files('libs/utdid4all-1.5.0-proguard.jar')
+    implementation files('libs/utdid4all-1.5.0-proguard.jar')
 }
