@@ -16,7 +16,7 @@ import org.webrtc.alirtcInterface.AliSubscriberInfo;
  * @desc 阿里rtc的通知回调接口，被动接收一些回调，即我们本地未调用任何sdk方法而被动接口的一些回调
  */
 public class SimpleAliRtcEngineNotify extends AliRtcEngineNotify {
-    private final  String TAG = "SimpleARENotify";
+    private final String TAG = "SimpleARENotify";
 
     /**
      * 远端用户停止发布通知，处于OB（observer）状态 停止推送视频 还未退出房间 被动接收

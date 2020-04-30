@@ -19,7 +19,6 @@ import com.yue.libalirtc.bean.AliRtcInitBean;
 import com.yue.libalirtc.callback.SimpleAliRtcEngineEventListener;
 import com.yue.libalirtc.callback.SimpleAliRtcEngineNotify;
 
-import org.webrtc.alirtcInterface.ALI_RTC_INTERFACE;
 import org.webrtc.alirtcInterface.AliParticipantInfo;
 import org.webrtc.alirtcInterface.AliStatusInfo;
 import org.webrtc.alirtcInterface.AliSubscriberInfo;
@@ -503,10 +502,14 @@ public class AliRtcOOBaseFragment extends Fragment {
                 mSimpleEngineEventListener.onUnsubscribeResult(result, userId);
         }
 
+
+        /**
+         * 网络状态变化的回调
+         */
         @Override
         public void onNetworkQualityChanged(String uid, AliRtcEngine.AliRtcNetworkQuality upQuality, AliRtcEngine.AliRtcNetworkQuality downQuality) {
             if (mSimpleEngineEventListener != null)
-                mSimpleEngineEventListener.onNetworkQualityChanged(uid,upQuality,downQuality);
+                mSimpleEngineEventListener.onNetworkQualityChanged(uid, upQuality,downQuality);
         }
 
 
@@ -562,10 +565,15 @@ public class AliRtcOOBaseFragment extends Fragment {
                 mSimpleEngineEventListener.onConnectionRecovery();
         }
 
+        /**
+         * @param oldRole
+         * @param newRole
+         * 用户角色更新
+         */
         @Override
         public void onUpdateRoleNotify(AliRtcEngine.AliRTCSDK_Client_Role oldRole, AliRtcEngine.AliRTCSDK_Client_Role newRole) {
             if (mSimpleEngineEventListener != null)
-                mSimpleEngineEventListener.onUpdateRoleNotify(oldRole,newRole);
+                mSimpleEngineEventListener.onUpdateRoleNotify(oldRole, newRole);
         }
     };
 

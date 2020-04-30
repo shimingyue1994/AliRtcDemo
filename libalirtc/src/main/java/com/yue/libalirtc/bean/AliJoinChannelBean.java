@@ -18,7 +18,7 @@ public class AliJoinChannelBean implements Parcelable {
     public String[] gslb;//gslb地址
 
 
-    public AliJoinChannelBean(String appid,String channelId, String userId, String nonce, long timestamp, String token, String[] gslb) {
+    public AliJoinChannelBean(String appid, String channelId, String userId, String nonce, long timestamp, String token, String[] gslb) {
         this.appid = appid;
         this.channelId = channelId;
         this.userId = userId;

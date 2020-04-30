@@ -11,6 +11,7 @@ import android.widget.RelativeLayout;
 
 import org.webrtc.sdk.SophonSurfaceView;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
@@ -35,7 +36,7 @@ import java.util.LinkedList;
  * <p>
  * 7.堆叠布局与宫格布局参数，见{@link Utils} 工具类
  */
-public class ARTCVideoLayoutManager extends RelativeLayout {
+public class ARTCVideoLayoutManager extends RelativeLayout implements ARTCVideoLayout.IVideoLayoutListener {
 
     public static final int AliRtcVideoTrackCamera = 0;
     public static final int AliRtcVideoTrackScreen = 1;
@@ -45,6 +46,7 @@ public class ARTCVideoLayoutManager extends RelativeLayout {
     public static final int MODE_GRID = 2;  // 九宫格模式
     public static final int MAX_USER = 7;
     private final static String TAG = ARTCVideoLayoutManager.class.getSimpleName();
+    public WeakReference<IVideoLayoutListener> mWefListener;
     private LinkedList<ARTCLayoutEntity> mLayoutEntityList;
     private ArrayList<LayoutParams> mFloatParamList;
     private ArrayList<LayoutParams> mGrid4ParamList;
@@ -97,7 +99,32 @@ public class ARTCVideoLayoutManager extends RelativeLayout {
             }
         });
     }
+    @Override
+    public void onVideoRoate(ARTCVideoLayout view) {
+        ARTCLayoutEntity entity = findEntity(view);
+        IVideoLayoutListener listener = mWefListener != null ? mWefListener.get() : null;
+        if (listener != null) {
+            if (entity.userId.equals(mSelfUserId)) {
+                /*自己的视频 需要调用setLocalViewRotation*/
+                listener.onVideoRoate(view,entity.userId, entity.videoTrack,true);
+            } else {
+                /*远端视频setRemoteViewRotation*/
+                listener.onVideoRoate(view,entity.userId, entity.videoTrack,false);
+            }
+        }
+    }
 
+
+    /**
+     * ===============================Manager对外相关方法===============================
+     */
+    public void setIVideoLayoutListener(IVideoLayoutListener listener) {
+        if (listener == null) {
+            mWefListener = null;
+        } else {
+            mWefListener = new WeakReference<>(listener);
+        }
+    }
     public void setMySelfUserId(String userId) {
         mSelfUserId = userId;
     }
@@ -355,6 +382,16 @@ public class ARTCVideoLayoutManager extends RelativeLayout {
             bringChildToFront(entity.layout);
         }
     }
+    public interface IVideoLayoutListener {
+        /**
+         * 视频旋转：
+         *
+         * @param userId 用户id
+         * @param mySelf 是否是自己的视频
+         */
+        void onVideoRoate(ARTCVideoLayout artcVideoLayout, String userId, int videoTrack, boolean mySelf);
+    }
+
 
     private static class ARTCLayoutEntity {
         public ARTCVideoLayout layout;

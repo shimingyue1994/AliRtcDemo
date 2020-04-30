@@ -12,10 +12,11 @@ import android.widget.RelativeLayout;
 
 import androidx.annotation.Nullable;
 
-
 import com.yue.libalirtc.R;
 
 import org.webrtc.sdk.SophonSurfaceView;
+
+import java.lang.ref.WeakReference;
 
 import static android.graphics.PixelFormat.TRANSPARENT;
 
@@ -32,14 +33,14 @@ import static android.graphics.PixelFormat.TRANSPARENT;
  * <p>
  * 2. 对{@link SophonSurfaceView} 与逻辑 UI 进行组合，在 muteLocal、音量回调等情况，能够进行 UI 相关的变化。若您的项目中，也相关的业务逻辑，可以参照 Demo 的相关实现。
  */
-class ARTCVideoLayout extends RelativeLayout implements View.OnClickListener {
+public class ARTCVideoLayout extends RelativeLayout implements View.OnClickListener {
+    public WeakReference<IVideoLayoutListener> mWefListener;
     private SophonSurfaceView mVideoView;
     private OnClickListener mClickListener;
     private GestureDetector mSimpleOnGestureListener;
     private ViewGroup mVgFuc;
     private FrameLayout mVideoContent;
     private boolean mMoveable;
-    private FrameLayout mFlContent;
 
 
     public ARTCVideoLayout(Context context) {
@@ -61,9 +62,9 @@ class ARTCVideoLayout extends RelativeLayout implements View.OnClickListener {
     }
 
     private void initFuncLayout() {
-        mVgFuc = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.layout_trtc_func, this, true);
-        mVideoContent = mVgFuc.findViewById(R.id.fl_video_content);
-        mVideoView = (SophonSurfaceView) mVgFuc.findViewById(R.id.trtc_tc_cloud_view);
+        mVgFuc = (ViewGroup) LayoutInflater.from(getContext()).inflate(R.layout.layout_artc_func, this, true);
+        mVideoContent = mVgFuc.findViewById(R.id.fl_artc_video_content);
+        mVideoView = (SophonSurfaceView) mVgFuc.findViewById(R.id.artc_tc_cloud_view);
     }
 
     private void initGestureListener() {
@@ -134,7 +135,27 @@ class ARTCVideoLayout extends RelativeLayout implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
+        IVideoLayoutListener listener = mWefListener != null ? mWefListener.get() : null;
+        if (listener == null) return;
+        int id = v.getId();
+        if (id == R.id.btn_roate) {
+//            mVideoView.setRotation((mVideoView.getRotation()+90)%360);
+            listener.onVideoRoate(this);
+        }
+    }
 
+
+    public void setIVideoLayoutListener(IVideoLayoutListener listener) {
+        if (listener == null) {
+            mWefListener = null;
+        } else {
+            mWefListener = new WeakReference<>(listener);
+        }
+    }
+
+    public interface IVideoLayoutListener {
+
+        void onVideoRoate(ARTCVideoLayout view);
     }
 
 }

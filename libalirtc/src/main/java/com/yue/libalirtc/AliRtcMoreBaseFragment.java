@@ -12,13 +12,14 @@ import com.alivc.rtc.AliRtcEngine;
 import com.alivc.rtc.AliRtcEngineEventListener;
 import com.alivc.rtc.AliRtcEngineNotify;
 import com.alivc.rtc.AliRtcRemoteUserInfo;
+import com.blankj.utilcode.util.Utils;
 import com.yue.libalirtc.bean.AliJoinChannelBean;
 import com.yue.libalirtc.bean.AliRtcInitBean;
 import com.yue.libalirtc.callback.SimpleAliRtcEngineEventListener;
 import com.yue.libalirtc.callback.SimpleAliRtcEngineNotify;
+import com.yue.libalirtc.weight.ARTCVideoLayout;
 import com.yue.libalirtc.weight.ARTCVideoLayoutManager;
 
-import org.webrtc.alirtcInterface.ALI_RTC_INTERFACE;
 import org.webrtc.alirtcInterface.AliParticipantInfo;
 import org.webrtc.alirtcInterface.AliStatusInfo;
 import org.webrtc.alirtcInterface.AliSubscriberInfo;
@@ -55,6 +56,7 @@ public class AliRtcMoreBaseFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Utils.init(getContext().getApplicationContext());
     }
 
 
@@ -80,6 +82,23 @@ public class AliRtcMoreBaseFragment extends Fragment {
         mAliRtcBean = rtcInitBean;
         mVideoLayoutManager = videoLayout;
         videoLayout.setMySelfUserId(rtcInitBean.userId);
+        videoLayout.setIVideoLayoutListener(new ARTCVideoLayoutManager.IVideoLayoutListener() {
+            @Override
+            public void onVideoRoate(ARTCVideoLayout view, String userId, int videoTrack, boolean mySelf) {
+                if (mySelf){
+                    int rotation = (ConfigHelper.getInstance().getVideoConfig().getLocalRotation()+90)%360;
+                    view.setRotation(rotation);
+                    ConfigHelper.getInstance().getVideoConfig().setLocalRotation(rotation);
+                    ConfigHelper.getInstance().getVideoConfig().saveCache();
+                }else {
+                    int rotation = (ConfigHelper.getInstance().getVideoConfig().getRemoteRotation()+90)%360;
+                    view.setRotation(rotation);
+                    ConfigHelper.getInstance().getVideoConfig().setRemoteRotation(rotation);
+                    ConfigHelper.getInstance().getVideoConfig().saveCache();
+                }
+
+            }
+        });
         initRTCEngine();
         initLocalView();
     }
@@ -112,6 +131,7 @@ public class AliRtcMoreBaseFragment extends Fragment {
             aliVideoCanvas.view = mVideoLayoutManager.allocCloudVideoView(mAliRtcBean.userId, ARTCVideoLayoutManager.AliRtcVideoTrackCamera);
         else if (mAliRtcBean.videoTrack == AliRtcVideoTrackScreen)
             aliVideoCanvas.view = mVideoLayoutManager.allocCloudVideoView(mAliRtcBean.userId, ARTCVideoLayoutManager.AliRtcVideoTrackScreen);
+        aliVideoCanvas.view.setRotation(ConfigHelper.getInstance().getVideoConfig().getLocalRotation());
         aliVideoCanvas.renderMode = AliRtcRenderModeAuto;
         /*设置为相机流*/
         mAliRtcEngine.setLocalViewConfig(aliVideoCanvas, mAliRtcBean.videoTrack);
@@ -786,6 +806,7 @@ public class AliRtcMoreBaseFragment extends Fragment {
             surfaceView.setZOrderOnTop(true);
             surfaceView.setZOrderMediaOverlay(true);
             canvas.view = surfaceView;
+            canvas.view.setRotation(ConfigHelper.getInstance().getVideoConfig().getRemoteRotation());
             //renderMode提供四种模式：Auto、Stretch、Fill、Crop，建议使用Auto模式。
             canvas.renderMode = AliRtcRenderModeAuto;
         }

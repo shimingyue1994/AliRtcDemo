@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <Button
+        android:id="@+id/btn_roate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:minHeight="0dp"
+        android:minWidth="0dp"
+        android:layout_margin="10dp"
+        android:text="旋转"/>
+    <FrameLayout
+        android:id="@+id/fl_artc_video_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <org.webrtc.sdk.SophonSurfaceView
+            android:id="@+id/artc_tc_cloud_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </FrameLayout>
+
+</RelativeLayout>
+
+

@@ -14,7 +14,7 @@ import org.webrtc.alirtcInterface.ALI_RTC_INTERFACE;
  */
 public class SimpleAliRtcEngineEventListener extends AliRtcEngineEventListener {
 
-    private final  String TAG = "EngineEventListener";
+    private final String TAG = "EngineEventListener";
 
     /**
      * 加入房间的回调
